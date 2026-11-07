@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HiFi Customer Monitoring</title>
+<style>
+:root{--bg:#f5f3ff;--card:#fff;--ink:#202044;--muted:#777795;--line:#e8e4f5;--blue:#6254e7;--navy:#29205c;--green:#079b78;--orange:#e58a24}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 8% 0%,#e8e3ff 0,transparent 27%),radial-gradient(circle at 96% 8%,#ffe8f0 0,transparent 23%),var(--bg);color:var(--ink);font:14px/1.5 Inter,Segoe UI,Arial,sans-serif}
+.topbar{background:linear-gradient(115deg,#29205c 0%,#5142bd 54%,#8a54cf 100%);color:#fff;padding:22px clamp(18px,4vw,48px);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;box-shadow:0 8px 24px #5142bd2b}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,#ffbd69,#ff7aa8);color:#3b245f;display:grid;place-items:center;font-size:21px;font-weight:900;box-shadow:0 5px 14px #17104440}.brand h1{font-size:19px;margin:0}.brand p{margin:2px 0 0;color:#e2dcff;font-size:12px}
+.top-tag{font-size:12px;color:#fff;background:#ffffff20;border:1px solid #ffffff45;padding:7px 11px;border-radius:20px}
+main{max-width:1500px;margin:auto;padding:28px clamp(14px,3vw,36px) 50px}
+.intro{display:flex;justify-content:space-between;align-items:end;gap:15px;flex-wrap:wrap;margin-bottom:20px}.intro h2{margin:0;font-size:23px;letter-spacing:-.5px}.intro p{margin:5px 0 0;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:14px;margin-bottom:20px}.stat,.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 18px #4034770c}.stat{padding:16px 18px;position:relative;overflow:hidden}.stat:after{content:'';position:absolute;width:75px;height:75px;border-radius:50%;right:-20px;top:-24px;background:var(--tint);opacity:.8}.stat:nth-child(1){--tint:#dedaff;border-top:4px solid #7566ee}.stat:nth-child(2){--tint:#d5f7ed;border-top:4px solid #18b58c}.stat:nth-child(3){--tint:#ffe8cf;border-top:4px solid #f0a23e}.stat:nth-child(4){--tint:#ffdeeb;border-top:4px solid #ec6c9e}.stat span{color:var(--muted);font-size:12px}.stat strong{display:block;font-size:27px;margin-top:5px;position:relative;z-index:1}.stat small{color:var(--muted)}
+.panel{padding:18px;margin-bottom:18px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}.panel h3{font-size:15px;margin:0}.muted{color:var(--muted);font-size:12px}
+.message{background:linear-gradient(120deg,#f0edff,#fff2f7);border:1px solid #e3dcff;border-left:4px solid #7866e9;border-radius:12px;padding:14px;color:#403b67;white-space:pre-line;line-height:1.7;margin:12px 0}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap}.search{flex:1;min-width:220px}.field,select{border:1px solid #dce2ec;border-radius:9px;padding:10px 12px;background:#fff;color:var(--ink);font:inherit;outline:none}.field:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #2563eb18}
+button{border:0;border-radius:9px;padding:10px 14px;font:600 13px inherit;cursor:pointer;transition:.15s}.primary{background:linear-gradient(110deg,#6254e7,#9270ed);color:#fff}.secondary{background:#eeeaff;color:#5949c7}.ghost{background:#fff0f5;color:#b94f78}.primary:hover{background:#1d4ed8}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;min-width:1120px;background:#fff}th{background:#f0edff;color:#5c5387;font-size:11px;text-transform:uppercase;letter-spacing:.5px;text-align:left;padding:12px 11px;white-space:nowrap;position:sticky;top:0}td{padding:11px;border-top:1px solid var(--line);vertical-align:middle;font-size:12px}tr:hover td{background:#faf8ff}.customer{font-weight:650;color:#1b2942}.sub{font-size:11px;color:var(--muted);margin-top:2px}.phone{white-space:nowrap;font-variant-numeric:tabular-nums}.pill{display:inline-block;border-radius:20px;padding:4px 8px;font-size:10px;font-weight:700;background:#e8e5ff;color:#5b4bc4}.status{font-weight:700;color:#b96a13;background:#fff0d9;padding:4px 8px;border-radius:20px}
+td select{padding:7px 8px;font-size:11px;min-width:90px}td input{width:135px;padding:7px 8px;font-size:11px}.actions{display:flex;gap:6px}.actions button{padding:7px 9px;font-size:11px;white-space:nowrap}
+.empty{text-align:center;padding:35px;color:var(--muted)}.footer{color:var(--muted);font-size:11px;text-align:right;padding:12px 2px}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.intro h2{font-size:20px}.panel{padding:13px}.topbar{padding:17px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="logo">H</div><div><h1>HiFi Customer Monitoring</h1><p>Dashboard monitoring & follow-up pelanggan</p></div></div>
+  <!-- <div class="top-tag">CUSTOMER SERVICE · INTERNAL</div> -->
+</header>
+<main>
+  <section class="intro"><div><h2>Monitoring Customer</h2><p>Kelola status enum, respon pelanggan, dan tindak lanjut tim.</p></div><button class="secondary" id="exportBtn">↓ Export CSV</button></section>
+  <section class="stats">
+    <div class="stat"><span>Total Customer</span><strong id="totalCount">0</strong><small>Data terdaftar</small></div>
+    <div class="stat"><span>Enum Ada</span><strong id="enumCount">0</strong><small>Nomor enum tersedia</small></div>
+    <div class="stat"><span>Respon Ada</span><strong id="responseCount">0</strong><small>Pelanggan merespons</small></div>
+    <div class="stat"><span>Tim Sudah</span><strong id="teamCount">0</strong><small>Sudah ditindaklanjuti</small></div>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><h3>Template Pesan Customer</h3><button class="secondary" id="copyTemplate">Salin Template</button></div>
+    <div class="message" id="templateText">Pelanggan yang Terhormat,
+          [TIKET] [NAMA CUSTOMER] [FH ID]
+
+          Kami informasikan bahwa berdasarkan deteksi sistem saat ini, layanan HiFi anda terindikasi mengalami penurunan kualitas jaringan dan berpotensi mati total.
+
+          Untuk memastikan kendala tersebut, teknisi kami akan melakukan pengecekan dan perbaikan layanan HiFi di rumah Anda.
+
+          Mohon konfirmasinya agar saya bisa ke lokasi untuk melakukan perbaikan. Atas perhatiannya saya ucapkan terima kasih.</div>
+    <div class="muted">Pesan pada setiap customer otomatis menyesuaikan nama, tiket, dan FH ID.</div>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><div><h3>Daftar Customer</h3><div class="muted">Mulai dari kosong · Upload Excel untuk mengisi data · Perubahan tersimpan otomatis di browser ini</div></div>
+      <div class="toolbar"><input class="field search" id="searchInput" placeholder="Cari nama, nomor HP, tiket, atau FH ID...">
+        <label class="secondary" for="excelInput" style="display:inline-flex;align-items:center;cursor:pointer">↑ Import Excel</label>
+        <input id="excelInput" type="file" accept=".xlsx,.xls,.csv" hidden>
+        <button class="ghost" id="resetBtn" type="button">↺ Reset Data</button>
+        <select id="filterEnum"><option value="">Semua Enum</option><option>Ada</option><option>Tidak</option></select>
+        <select id="filterResponse"><option value="">Semua Respon</option><option>Ada</option><option>Tidak</option></select>
+        <select id="filterTeam"><option value="">Semua Tim</option><option>Udah</option><option>Belum</option></select>
+      </div>
+    </div>
+    <div class="table-wrap"><table><thead><tr>
+      <th>No.</th><th>Nama Customer</th><th>No. HP</th><th>Type</th><th>Tiket</th><th>FH ID</th><th>Tanggal Assign</th><th>Status</th><th>No. Enum</th><th>Respon</th><th>Tim</th><th>Aksi</th>
+    </tr></thead><tbody id="customerBody"></tbody></table><div class="empty" id="emptyState" hidden>Belum ada data customer. Klik Import Excel untuk mengunggah data dari template.</div></div>
+    <div class="footer" id="shownCount"></div>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+<script>
+const initialCustomers = [];
+let customers=initialCustomers.map(c=>({...c}));
+const body=document.getElementById("customerBody");
+const key="hifiCustomerMonitoring_v2";
+const saved=(()=>{try{return JSON.parse(localStorage.getItem(key)||"null")}catch{return null}})();
+if(Array.isArray(saved)) customers=saved;
+const messageFor=c=>`Pelanggan yang Terhormat,
+${c.ticket} ${c.name} ${c.fh}
+
+Kami informasikan bahwa berdasarkan deteksi sistem saat ini, layanan HiFi anda terindikasi mengalami penurunan kualitas jaringan dan berpotensi mati total.
+
+Untuk memastikan kendala tersebut, teknisi kami akan melakukan pengecekan dan perbaikan layanan HiFi di rumah Anda.
+
+Mohon konfirmasinya agar saya bisa ke lokasi untuk melakukan perbaikan. Atas perhatiannya saya ucapkan terima kasih.`;
+function persist(){localStorage.setItem(key,JSON.stringify(customers));}
+function option(value,choices){return `<option value="">Pilih</option>`+choices.map(x=>`<option ${value===x?"selected":""}>${x}</option>`).join("");}
+function render(){
+ const q=document.getElementById("searchInput").value.toLowerCase();
+ const fe=document.getElementById("filterEnum").value,fr=document.getElementById("filterResponse").value,ft=document.getElementById("filterTeam").value;
+ const filtered=customers.filter(c=>(`${c.name} ${c.phone} ${c.ticket} ${c.fh} ${c.no}`.toLowerCase().includes(q))&&(!fe||c.enum===fe)&&(!fr||c.response===fr)&&(!ft||c.team===ft));
+ body.innerHTML=filtered.map(c=>`<tr data-no="${c.no}">
+ <td>${c.no}</td><td><div class="customer">${esc(c.name)}</div><div class="sub">Customer #${c.no}</div></td>
+ <td class="phone">${c.phone}</td><td><span class="pill">${c.type}</span></td><td>${c.ticket}</td><td>${c.fh}</td>
+ <td><input class="field" data-field="assign" placeholder="DD/MM/YYYY HH:mm" value="${esc(c.assign)}"></td>
+ <td><span class="status">${c.status}</span></td>
+ <td><select data-field="enum">${option(c.enum,["Ada","Tidak"])}</select></td>
+ <td><select data-field="response">${option(c.response,["Ada","Tidak"])}</select></td>
+ <td><select data-field="team">${option(c.team,["Udah","Belum"])}</select></td>
+ <td><div class="actions"><button class="secondary copy-one" data-no="${c.no}">Salin pesan</button><button class="ghost wa-one" data-no="${c.no}">WhatsApp</button></div></td>
+ </tr>`).join("");
+ document.getElementById("emptyState").hidden=filtered.length>0;
+ document.getElementById("shownCount").textContent=`Menampilkan ${filtered.length} dari ${customers.length} customer`;
+ document.getElementById("totalCount").textContent=customers.length;
+ document.getElementById("enumCount").textContent=customers.filter(c=>c.enum==="Ada").length;
+ document.getElementById("responseCount").textContent=customers.filter(c=>c.response==="Ada").length;
+ document.getElementById("teamCount").textContent=customers.filter(c=>c.team==="Udah").length;
+}
+function esc(s){return String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
+body.addEventListener("change",e=>{const field=e.target.dataset.field;if(!field)return;const c=customers.find(x=>x.no===Number(e.target.closest("tr").dataset.no));c[field]=e.target.value;persist();render();});
+body.addEventListener("click",async e=>{const b=e.target.closest("button");if(!b)return;const c=customers.find(x=>x.no===Number(b.dataset.no));if(!c)return;const msg=messageFor(c);if(b.classList.contains("copy-one")){await navigator.clipboard.writeText(`${c.ticket} ${c.name} ${c.fh}`);b.textContent="Tersalin ✓";setTimeout(()=>b.textContent="Salin pesan",1300);}if(b.classList.contains("wa-one")){window.open(`https://wa.me/${c.phone}?text=${encodeURIComponent(msg)}`,"_blank");}});
+["searchInput","filterEnum","filterResponse","filterTeam"].forEach(id=>document.getElementById(id).addEventListener("input",render));
+document.getElementById("copyTemplate").addEventListener("click",async()=>{await navigator.clipboard.writeText(document.getElementById("templateText").innerText);const b=document.getElementById("copyTemplate");b.textContent="Tersalin ✓";setTimeout(()=>b.textContent="Salin Template",1300);});
+document.getElementById("exportBtn").addEventListener("click",()=>{const cols=["no","name","phone","type","ticket","fh","assign","status","enum","response","team"];const rows=[cols.join(","),...customers.map(c=>cols.map(k=>`"${String(c[k]??"").replace(/"/g,'""')}"`).join(","))];const blob=new Blob(["\ufeff"+rows.join("\n")],{type:"text/csv;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="monitoring-customer-hifi.csv";a.click();URL.revokeObjectURL(a.href);});
+
+function normHead(s){return String(s??"").trim().toLowerCase().replace(/[\s._-]+/g,"");}
+function getVal(row,names){const keys=Object.keys(row);for(const n of names){const k=keys.find(x=>normHead(x)===normHead(n));if(k!==undefined)return row[k];}return "";}
+function cleanVal(v){return v===undefined||v===null?"":String(v).trim();}
+document.getElementById("excelInput").addEventListener("change",async e=>{
+ const file=e.target.files[0];if(!file)return;
+ try{
+  if(typeof XLSX==="undefined")throw new Error("Library pembaca Excel belum termuat. Pastikan internet aktif, lalu muat ulang website.");
+  const buf=await file.arrayBuffer();
+  const book=XLSX.read(buf,{type:"array",raw:false});
+  const sheet=book.Sheets[book.SheetNames.includes("Customer")?"Customer":book.SheetNames[0]];
+  const rows=XLSX.utils.sheet_to_json(sheet,{defval:"",raw:false});
+  const imported=rows.map((r,i)=>({
+   no:Number(getVal(r,["No.","No","Nomor"]))||i+1,
+   name:cleanVal(getVal(r,["Nama Customer","Nama","Customer"])),
+   phone:cleanVal(getVal(r,["No HP","Nomor HP","Telepon","Phone"])).replace(/\.0$/,""),
+   type:cleanVal(getVal(r,["Type","Tipe"]))||"CUSTOMER",
+   ticket:cleanVal(getVal(r,["Tiket","Ticket","No Tiket"])),
+   fh:cleanVal(getVal(r,["FH ID","FHID"])).replace(/\.0$/,""),
+   assign:cleanVal(getVal(r,["Tanggal Assign","Assign","Tanggal"])),
+   status:cleanVal(getVal(r,["Status"]))||"OPEN",
+   enum:cleanVal(getVal(r,["No Enum","Enum"])),
+   response:cleanVal(getVal(r,["Respon","Response"])),
+   team:cleanVal(getVal(r,["Tim","Team"]))
+  })).filter(c=>c.name||c.phone||c.ticket);
+  if(!imported.length)throw new Error("Tidak ada data customer. Gunakan sheet Customer dan jangan ubah judul kolom.");
+  customers=imported;persist();render();
+  alert("Berhasil mengimpor "+customers.length+" customer. Data di website sekarang mengikuti file Excel.");
+ }catch(err){alert("Gagal import: "+err.message);}
+ e.target.value="";
+});
+document.getElementById("resetBtn").addEventListener("click",()=>{
+ if(!confirm("Kosongkan seluruh tabel? Semua data yang sedang tampil dan perubahan akan dihapus."))return;
+ customers=initialCustomers.map(c=>({...c}));
+ localStorage.removeItem(key);
+ document.getElementById("searchInput").value="";
+ ["filterEnum","filterResponse","filterTeam"].forEach(id=>document.getElementById(id).value="");
+ render();
+});
+render();
+</script>
+</body></html>
